@@ -6,13 +6,14 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Builder
-@Data
+@RequiredArgsConstructor
+@Table(name = "game_genre")
 public class GameGenre {
 
     @Id
     @Getter
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pk_game_genre_id")
     private long id;
 
     @Getter
@@ -25,4 +26,11 @@ public class GameGenre {
     @JsonBackReference
     @ManyToMany
     private Collection<Game> games;
+
+    public GameGenre(@NonNull String name, Collection<Game> games) {
+        this.name = name;
+        this.games = games;
+    }
 }
+
+

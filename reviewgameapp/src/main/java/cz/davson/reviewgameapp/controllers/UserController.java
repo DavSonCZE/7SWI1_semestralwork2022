@@ -46,7 +46,7 @@ public class UserController {
         User user = repository.findById(id)
                 .map(x -> {
                     x.setFirstName(newUser.getFirstName());
-                    x.setSurName(newUser.getSurName());
+                    x.setSurname(newUser.getSurname());
                     x.setUserName(newUser.getUserName());
                     x.setEmail(newUser.getEmail());
                     return repository.save(x);
@@ -54,7 +54,7 @@ public class UserController {
                 .orElseGet(() -> {
                     return repository.save(newUser);
                 });
-        return ResponseEntity.ok("Game is valid");
+        return ResponseEntity.ok("User is valid");
     }
 
     @ResponseStatus(HttpStatus.OK)

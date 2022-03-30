@@ -30,25 +30,23 @@ public class GameController {
         return repository.findAll();
     }
 
-    @GetMapping("/games/{id}")
+    @GetMapping("/game/{id}")
     Optional<Game> findGame(@PathVariable Long id) {
         return repository.findById(id);
     }
 
-    @PutMapping("/games/{id}")
+    @PutMapping("/game/{id}")
     ResponseEntity<String> createOrUpdate(@PathVariable Long id, @RequestBody Game newGame) {
         Game game = repository.findById(id)
                 .map(x -> {
+                    x.setGameIcon(newGame.getGameIcon());
                     x.setGameName(newGame.getGameName());
-                    x.setPublisher(newGame.getPublisher());
-                    x.setDeveloper(newGame.getDeveloper());
-                    x.setDeveloper(newGame.getDeveloper());
+                    x.setGameGenres(newGame.getGameGenres());
                     x.setReleaseDate(newGame.getReleaseDate());
-                    x.setVersionOfGame(newGame.getVersionOfGame());
-                    x.setGameGenre(newGame.getGameGenre());
-                    x.setGameGenre(newGame.getGameGenre());
-                    x.setPlatformForGame(newGame.getPlatformForGame());
-                    x.setPriceForGame(newGame.getPriceForGame());
+                    x.setDeveloper(newGame.getDeveloper());
+                    x.setPublisher(newGame.getPublisher());
+                    x.setPlatform(newGame.getPlatform());
+                    x.setPrice(newGame.getPrice());
                     return repository.save(x);
                 })
                 .orElseGet(() -> repository.save(newGame));

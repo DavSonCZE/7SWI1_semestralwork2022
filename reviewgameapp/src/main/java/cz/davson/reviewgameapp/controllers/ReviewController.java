@@ -31,12 +31,12 @@ public class ReviewController {
         return repository.findAll();
     }
 
-    @GetMapping("/reviews/{id}")
+    @GetMapping("/review/{id}")
     Optional<Review> findGame(@PathVariable Long id) {
         return repository.findById(id);
     }
 
-    @PutMapping("/reviews/{id}")
+    @PutMapping("/review/{id}")
     ResponseEntity<String> createOrUpdate(@PathVariable Long id, @RequestBody Review newReview) {
         Review review = repository.findById(id)
                 .map(x -> {

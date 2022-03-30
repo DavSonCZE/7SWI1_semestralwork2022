@@ -4,7 +4,9 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 /*@AllArgsConstructor
 @Getter
@@ -12,8 +14,11 @@ import java.util.Date;
 @NoArgsConstructor*/
 
 @Entity
-@Builder
-@Data
+@Table(name = "game")
+@NoArgsConstructor
+@RequiredArgsConstructor
+/*@Builder
+@Data*/
 public class Game {
 
     /*public enum GameVersion{
@@ -36,51 +41,64 @@ public class Game {
 
     @Getter
     @Setter
-    @NotNull
+    @ManyToOne
+    @Column(name = "game_icon")
+    private ImageSource gameIcon;
+
+    @Getter
+    @Setter
+    @NonNull
+    @Column(name = "game_name")
     private String gameName;
 
     @Getter
     @Setter
-    @NotNull
-    private String publisher;
+    @NonNull
+    @JoinTable(
+            name = "Game_has_Genre",
+            joinColumns = @JoinColumn(name = "pk_fk_game_id", referencedColumnName = "pk_game_id"),
+            inverseJoinColumns = @JoinColumn(name = "pk_fk_game_genre_id", referencedColumnName = "pk_game_genre_id")
+    )
+    private Collection<GameGenre> gameGenres;
 
     @Getter
     @Setter
-    @NotNull
-    private String developer;
-
-    @Getter
-    @Setter
-    @NotNull
+    @NonNull
+    @Column(name = "release_date")
     private Date releaseDate;
 
     @Getter
     @Setter
-    @NotNull
-    private String versionOfGame;
+    @NonNull
+    @Column(name = "developer")
+    private String developer;
 
     @Getter
     @Setter
-    @NotNull
-    private String gameGenre;
+    @NonNull
+    @Column(name = "publisher")
+    private String publisher;
 
     @Getter
     @Setter
-    @NotNull
-    private String platformForGame;
+    @NonNull
+    @Column(name = "platform")
+    private String platform;
 
     @Getter
     @Setter
-    @NotNull
-    private double priceForGame;
+    @NonNull
+    @Column(name = "price")
+    private double price;
 
-    @Getter
-    @Setter
-    @ManyToOne
-    private ImageSource gameIcon;
-
-//    public Game() {
-//    }
+    public Game(@NonNull String gameName, @NonNull Date releaseDate, @NonNull String developer, @NonNull String publisher, @NonNull String platform, @NonNull double price) {
+        this.gameName = gameName;
+        this.releaseDate = releaseDate;
+        this.developer = developer;
+        this.publisher = publisher;
+        this.platform = platform;
+        this.price = price;
+    }
 }
 
 

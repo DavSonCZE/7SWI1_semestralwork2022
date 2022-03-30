@@ -25,7 +25,7 @@ public class GameGenreController {
         this.repository = repository;
     }
 
-    @GetMapping("/gamegenre")
+    @GetMapping("/gamegenres")
     public List<GameGenre> findAll() {
         return repository.findAll();
     }
@@ -43,7 +43,7 @@ public class GameGenreController {
                     return repository.save(x);
                 })
                 .orElseGet(() -> repository.save(newGameGenre));
-        return ResponseEntity.ok("Game is valid");
+        return ResponseEntity.ok("GameGenre is valid");
     }
 
     @ResponseStatus(HttpStatus.OK)

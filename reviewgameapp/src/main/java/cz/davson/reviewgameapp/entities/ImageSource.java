@@ -3,23 +3,25 @@ package cz.davson.reviewgameapp.entities;
 import com.sun.istack.NotNull;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@Builder
-@Data
+@RequiredArgsConstructor
 public class ImageSource {
     @Id
     @Getter
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Getter
     @Setter
     @NotNull
-    @Column(length = 128)
+    @Column(name = "game_icon_path", length = 128)
     private String path;
+
+    public ImageSource(String path) {
+        this.path = path;
+    }
 }
+
+
