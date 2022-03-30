@@ -1,8 +1,7 @@
 package cz.davson.reviewgameapp.entities;
 
-
-import lombok.Builder;
-import lombok.Data;
+import com.sun.istack.NotNull;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -12,13 +11,29 @@ import javax.persistence.*;
 @Data
 public class Review {
     @Id
+    @Getter
     @GeneratedValue
     private Long id;
+
+    @Getter
+    @Setter
+    @NotNull
     @ManyToOne
     private User user;
+
+    @Getter
+    @Setter
+    @NotNull
     @ManyToOne
     private Game game;
+
+    @Getter
+    @Setter
+    @NotNull
     private int score;
+
+    @Getter
+    @Setter
     @Type(type="text")
     private String reviewComment;
 }

@@ -1,7 +1,7 @@
 package cz.davson.reviewgameapp.entities;
 
-import lombok.Builder;
-import lombok.Data;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,17 +32,52 @@ public class Game {
     }*/
 
     @Id
+    @Getter
     @GeneratedValue
     private Long id;
 
+    @Getter
+    @Setter
+    @NotNull
     private String gameName;
+
+    @Getter
+    @Setter
+    @NotNull
     private String publisher;
+
+    @Getter
+    @Setter
+    @NotNull
     private String developer;
+
+    @Getter
+    @Setter
+    @NotNull
     private Date releaseDate;
+
+    @Getter
+    @Setter
+    @NotNull
     private String versionOfGame;
+
+    @Getter
+    @Setter
+    @NotNull
     private String gameGenre;
+
+    @Getter
+    @Setter
+    @NotNull
     private String platformForGame;
+
+    @Getter
+    @Setter
+    @NotNull
     private double priceForGame;
+
+    @Getter
+    @Setter
     @ManyToOne
     private ImageSource gameIcon;
 

@@ -1,7 +1,7 @@
 package cz.davson.reviewgameapp.entities;
 
-import lombok.Builder;
-import lombok.Data;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +13,13 @@ import javax.persistence.Id;
 @Data
 public class ImageSource {
     @Id
+    @Getter
     @GeneratedValue
     private long id;
+
+    @Getter
+    @Setter
+    @NotNull
     @Column(length = 128)
     private String path;
 }
