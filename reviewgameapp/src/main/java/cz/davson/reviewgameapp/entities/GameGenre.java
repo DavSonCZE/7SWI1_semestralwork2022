@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@RequiredArgsConstructor
+@Data
 @Table(name = "game_genre")
 public class GameGenre {
 
@@ -27,10 +27,16 @@ public class GameGenre {
     @ManyToMany
     private Collection<Game> games;
 
+    public GameGenre() {
+
+    }
+
     public GameGenre(@NonNull String name, Collection<Game> games) {
         this.name = name;
         this.games = games;
     }
+
+
 }
 
 

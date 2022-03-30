@@ -9,8 +9,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "review")
-/*@NoArgsConstructor
-@RequiredArgsConstructor*/
+@Builder
+@Data
 public class Review {
     @Id
     @Getter
@@ -45,6 +45,10 @@ public class Review {
     @Column(name = "review_comment")
     @Type(type="text")
     private String reviewComment;
+
+    public Review() {
+
+    }
 
     public Review(User user, Game game, int score, String reviewComment) {
         this.user = user;

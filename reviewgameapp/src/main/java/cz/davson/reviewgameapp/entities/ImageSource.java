@@ -6,7 +6,8 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@RequiredArgsConstructor
+@Builder
+@Data
 public class ImageSource {
     @Id
     @Getter
@@ -18,6 +19,10 @@ public class ImageSource {
     @NotNull
     @Column(name = "game_icon_path", length = 128)
     private String path;
+
+    public ImageSource() {
+
+    }
 
     public ImageSource(String path) {
         this.path = path;

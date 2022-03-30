@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 /*@AllArgsConstructor
 @Getter
@@ -15,8 +16,8 @@ import java.util.Iterator;
 
 @Entity
 @Table(name = "game")
+@Data
 @NoArgsConstructor
-@RequiredArgsConstructor
 /*@Builder
 @Data*/
 public class Game {
@@ -59,7 +60,7 @@ public class Game {
             joinColumns = @JoinColumn(name = "pk_fk_game_id", referencedColumnName = "pk_game_id"),
             inverseJoinColumns = @JoinColumn(name = "pk_fk_game_genre_id", referencedColumnName = "pk_game_genre_id")
     )
-    private Collection<GameGenre> gameGenres;
+    private List<GameGenre> gameGenres;
 
     @Getter
     @Setter
@@ -91,8 +92,10 @@ public class Game {
     @Column(name = "price")
     private double price;
 
-    public Game(@NonNull String gameName, @NonNull Date releaseDate, @NonNull String developer, @NonNull String publisher, @NonNull String platform, @NonNull double price) {
+    public Game(ImageSource gameIcon, @NonNull String gameName, @NonNull Collection<GameGenre> gameGenres, @NonNull Date releaseDate, @NonNull String developer, @NonNull String publisher, @NonNull String platform, @NonNull double price) {
+        this.gameIcon = gameIcon;
         this.gameName = gameName;
+        this.gameGenres = gameGenres;
         this.releaseDate = releaseDate;
         this.developer = developer;
         this.publisher = publisher;

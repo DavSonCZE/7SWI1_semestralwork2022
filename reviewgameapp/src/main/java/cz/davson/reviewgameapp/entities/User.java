@@ -7,7 +7,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-@RequiredArgsConstructor
+@Builder
+@Data
 public class User {
     @Id
     @Getter
@@ -38,4 +39,15 @@ public class User {
     @NotNull
     @Column(name = "username")
     private String userName;
+
+    public User() {
+
+    }
+
+    public User(String firstName, String surname, String email, String userName) {
+        this.firstName = firstName;
+        this.surname = surname;
+        this.email = email;
+        this.userName = userName;
+    }
 }
