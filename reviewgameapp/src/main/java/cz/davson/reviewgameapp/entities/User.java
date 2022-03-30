@@ -35,7 +35,4 @@ public class User {
     @Setter
     @NotNull
     private String userName;
-
-//    public User() {
-//    }
 }

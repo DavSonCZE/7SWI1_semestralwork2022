@@ -3,10 +3,7 @@ package cz.davson.reviewgameapp.entities;
 import com.sun.istack.NotNull;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 /*@AllArgsConstructor
@@ -33,7 +30,8 @@ public class Game {
 
     @Id
     @Getter
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pk_game_id")
     private Long id;
 
     @Getter
