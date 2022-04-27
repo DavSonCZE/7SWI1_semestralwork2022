@@ -1,2 +1,2 @@
-# 7SWI1_semestralwork2022 
+# 7SWI1 SEMESTRÁLNÍ PROJEKT (2022)
  
