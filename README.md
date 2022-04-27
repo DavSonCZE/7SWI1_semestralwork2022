@@ -7,3 +7,5 @@
 
 ## SWOT
 ![Screenshot](SWOT/SWOT.png)
+
+## DATAABSE SCHEME
