@@ -7,8 +7,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-@Builder
 @Data
+@NoArgsConstructor
+
 public class User {
     @Id
     @Getter
@@ -39,10 +40,6 @@ public class User {
     @NotNull
     @Column(name = "username")
     private String userName;
-
-    public User() {
-
-    }
 
     public User(String firstName, String surname, String email, String userName) {
         this.firstName = firstName;

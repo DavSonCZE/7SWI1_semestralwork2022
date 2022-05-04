@@ -1,6 +1,5 @@
 package cz.davson.reviewgameapp.repositories;
 
-import cz.davson.reviewgameapp.entities.Game;
 import cz.davson.reviewgameapp.entities.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 

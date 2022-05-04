@@ -1,39 +1,15 @@
 package cz.davson.reviewgameapp.entities;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
+
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
-/*@AllArgsConstructor
-@Getter
-@Setter
-@NoArgsConstructor*/
-
+import java.util.*;
 @Entity
 @Table(name = "game")
 @Data
 @NoArgsConstructor
-/*@Builder
-@Data*/
 public class Game {
-
-    /*public enum GameVersion{
-        Action, ActionAndAdventure, Adventure, Roleplaying, Simulator, Strategy, Sport, Puzzle, Idle
-    }
-
-    public enum GameGenre{
-        Alpha, Beta, Demo, EarlyAccess, FullRealise
-    }
-
-    public enum Platform{
-        PC, Android, MacOS, Linux, PS4, PS5, Switch
-    }*/
-
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +18,8 @@ public class Game {
 
     @Getter
     @Setter
-    @ManyToOne
     @Column(name = "game_icon")
-    private ImageSource gameIcon;
+    private String gameIcon;
 
     @Getter
     @Setter
@@ -54,12 +29,12 @@ public class Game {
 
     @Getter
     @Setter
-    @NonNull
-    @JoinTable(
+    @ManyToMany
+    /*@JoinTable(
             name = "Game_has_Genre",
             joinColumns = @JoinColumn(name = "pk_fk_game_id", referencedColumnName = "pk_game_id"),
             inverseJoinColumns = @JoinColumn(name = "pk_fk_game_genre_id", referencedColumnName = "pk_game_genre_id")
-    )
+    )*/
     private List<GameGenre> gameGenres;
 
     @Getter
@@ -92,7 +67,7 @@ public class Game {
     @Column(name = "price")
     private double price;
 
-    public Game(ImageSource gameIcon, @NonNull String gameName, @NonNull Collection<GameGenre> gameGenres, @NonNull Date releaseDate, @NonNull String developer, @NonNull String publisher, @NonNull String platform, @NonNull double price) {
+    public Game(String gameIconPath, @NonNull String gameName, List<GameGenre> gameGenres, @NonNull Date releaseDate, @NonNull String developer, @NonNull String publisher, @NonNull String platform, @NonNull double price) {
         this.gameIcon = gameIcon;
         this.gameName = gameName;
         this.gameGenres = gameGenres;

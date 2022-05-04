@@ -1,8 +1,6 @@
 package cz.davson.reviewgameapp.controllers;
 
-import cz.davson.reviewgameapp.entities.Game;
 import cz.davson.reviewgameapp.entities.Review;
-import cz.davson.reviewgameapp.repositories.GameRepository;
 import cz.davson.reviewgameapp.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -3,11 +3,11 @@ package cz.davson.reviewgameapp.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Data
 @Table(name = "game_genre")
+@NoArgsConstructor
 public class GameGenre {
 
     @Id
@@ -21,19 +21,8 @@ public class GameGenre {
     @NonNull
     private String name;
 
-    @Getter
-    @Setter
-    @JsonBackReference
-    @ManyToMany
-    private Collection<Game> games;
-
-    public GameGenre() {
-
-    }
-
-    public GameGenre(@NonNull String name, Collection<Game> games) {
+    public GameGenre(@NonNull String name) {
         this.name = name;
-        this.games = games;
     }
 
 
