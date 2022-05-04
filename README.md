@@ -11,8 +11,7 @@
 ## DATABASE SCHEME
 
 ## ARCHITECTURE DIAGRAM:
-
-## ARCHITECTURE DIAGRAM:
+![Screenshot](DIAGRMAS/architecture_diagram.png)
 
 ## CLASS DIAGRAM:
 
