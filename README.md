@@ -8,4 +8,18 @@
 ## SWOT
 ![Screenshot](SWOT/SWOT.png)
 
-## DATAABSE SCHEME
+## DATABASE SCHEME
+
+## ARCHITECTURE DIAGRAM:
+
+## ARCHITECTURE DIAGRAM:
+
+## CLASS DIAGRAM:
+
+## USE CASE:
+
+## Analytical Sequence Diagram:
+
+## Design Sequence Diagram:
+
+## EPC Diagram:
