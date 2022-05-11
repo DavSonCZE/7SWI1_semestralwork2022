@@ -2,6 +2,8 @@ package cz.davson.reviewgameapp.controllers;
 
 import cz.davson.reviewgameapp.entities.User;
 import cz.davson.reviewgameapp.repositories.UserRepository;
+import cz.davson.reviewgameapp.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,66 +12,41 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
-//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping(
-        name = "",
-//        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE
-)
+@AllArgsConstructor
+@RequestMapping("/user")
+@CrossOrigin()
 public class UserController {
 
-    private final UserRepository repository;
-
-    @Autowired
-    public UserController(UserRepository repository) {
-        this.repository = repository;
+    private final UserService service;
+    @GetMapping(path = "/all")
+    public List<User> getUsers() {
+        return  service.findAllUsers();
     }
 
-    @GetMapping(path = "/users")
-    public ResponseEntity<List<User>> findAll() {
-        return ResponseEntity.ok(repository.findAll());
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@RequestBody User user) {
+        user.setPassword(user.getPassword());
+        service.save(user);
+        return  ResponseEntity.ok("User was successfully created!");
     }
 
-    @GetMapping("/users/{id}")
-    Optional<User> findUser(@PathVariable Long id) {
-        return repository.findById(id);
+    @PostMapping("/{userID}/update")
+    public ResponseEntity<?> updateUser(@RequestBody User user,@PathVariable("userID") long userID) {
+        User userFromDb = service.findById(userID).orElseThrow(() -> new IllegalArgumentException("User is not found for id: " + userID));
+        Objects.requireNonNull(userFromDb).setUsername(user.getUsername());
+        Objects.requireNonNull(userFromDb).setEmail(user.getEmail());
+        Objects.requireNonNull(userFromDb).setPassword(user.getPassword());
+        service.save(userFromDb);
+        return ResponseEntity.ok("User is updated!");
     }
 
-    @PutMapping("/users/{id}")
-    ResponseEntity<String> createOrUpdate(  @PathVariable Long id, @RequestBody User newUser) {
-        User user = repository.findById(id)
-                .map(x -> {
-                    x.setFirstName(newUser.getFirstName());
-                    x.setSurname(newUser.getSurname());
-                    x.setUserName(newUser.getUserName());
-                    x.setEmail(newUser.getEmail());
-                    return repository.save(x);
-                })
-                .orElseGet(() -> {
-                    return repository.save(newUser);
-                });
-        return ResponseEntity.ok("User is valid");
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, Map> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-
-        Map<String, Map> ret = new HashMap<>();
-        ret.put("errors", errors);
-        return ret;
+    @DeleteMapping("/{userId}/delete")
+    public ResponseEntity<?> deleteUser(@PathVariable("userID") long userID) {
+        service.deleteById(userID);
+        return ResponseEntity.ok("User is successfully deleted!");
     }
 
 }

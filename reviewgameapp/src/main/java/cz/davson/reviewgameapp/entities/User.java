@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-@Data
 @NoArgsConstructor
 
 public class User {
@@ -20,31 +19,29 @@ public class User {
     @Getter
     @Setter
     @NotNull
-    @Column(name = "first_name")
-    private String firstName;
-
+    private String username;
     @Getter
     @Setter
     @NotNull
-    @Column(name = "surname")
-    private String surname;
-
-    @Getter
-    @Setter
-    @NotNull
-    @Column(name = "email")
     private String email;
-
     @Getter
     @Setter
     @NotNull
-    @Column(name = "username")
-    private String userName;
+    private String password;
 
-    public User(String firstName, String surname, String email, String userName) {
-        this.firstName = firstName;
-        this.surname = surname;
+    public User(Long id, String username, String email, String password) {
+        this.id = id;
+        this.username = username;
         this.email = email;
-        this.userName = userName;
+        this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

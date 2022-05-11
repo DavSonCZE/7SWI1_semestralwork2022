@@ -7,3 +7,12 @@ export default function Navbar(){
         </div>
     )
 }
+export function Footer(){
+    return(
+        <footer>
+            <div className="footer">
+
+            </div>
+        </footer>
+    )
+}

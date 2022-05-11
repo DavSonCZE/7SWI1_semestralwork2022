@@ -1,70 +1,57 @@
 package cz.davson.reviewgameapp.controllers;
 
 import cz.davson.reviewgameapp.entities.Game;
+import cz.davson.reviewgameapp.entities.User;
 import cz.davson.reviewgameapp.repositories.GameRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import cz.davson.reviewgameapp.services.GameService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 //@CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@AllArgsConstructor
+@RequestMapping("/game")
+@CrossOrigin()
+
 public class GameController {
+    private final GameService service;
 
-    private final GameRepository repository;
-
-    @Autowired
-    public GameController(GameRepository repository) {
-        this.repository = repository;
+    @GetMapping(path = "/all")
+    public List<Game> getGames(){
+        return service.findAllGames();
     }
 
-    @GetMapping("/games")
-    public List<Game> findAll() {
-        return repository.findAll();
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@RequestBody Game game) {
+        service.save(game);
+        return ResponseEntity.ok("Game is successfully created!");
     }
 
-    @GetMapping("/game/{id}")
-    Optional<Game> findGame(@PathVariable Long id) {
-        return repository.findById(id);
+    @PostMapping("/{gameID}/update")
+    public ResponseEntity<?> updateUser(@RequestBody Game game,@PathVariable("gameID") long gameID) {
+        Game gameFromDB = service.findById(gameID).orElseThrow( () -> new IllegalArgumentException("Game is not found for id: " + gameID));
+        Objects.requireNonNull(gameFromDB).setGameName(game.getGameName());
+        Objects.requireNonNull(gameFromDB).setReleaseYear(game.getReleaseYear());
+        Objects.requireNonNull(gameFromDB).setDeveloper(game.getDeveloper());
+        Objects.requireNonNull(gameFromDB).setPlatform(game.getPlatform());
+        Objects.requireNonNull(gameFromDB).setPrice(game.getPrice());
+        Objects.requireNonNull(gameFromDB).setGenres(game.getGenres());
+        service.save(gameFromDB);
+        return ResponseEntity.ok("Game is updated!");
     }
 
-    @PutMapping("/game/{id}")
-    ResponseEntity<String> createOrUpdate(@PathVariable Long id, @RequestBody Game newGame) {
-        Game game = repository.findById(id)
-                .map(x -> {
-                    x.setGameIcon(newGame.getGameIcon());
-                    x.setGameName(newGame.getGameName());
-                    x.setGameGenres(newGame.getGameGenres());
-                    x.setReleaseDate(newGame.getReleaseDate());
-                    x.setDeveloper(newGame.getDeveloper());
-                    x.setPublisher(newGame.getPublisher());
-                    x.setPlatform(newGame.getPlatform());
-                    x.setPrice(newGame.getPrice());
-                    return repository.save(x);
-                })
-                .orElseGet(() -> repository.save(newGame));
-        return ResponseEntity.ok("Game is valid");
+    @DeleteMapping("/{gameID}/delete")
+    public ResponseEntity<?> deleteUser(@PathVariable("gameID") long gameID) {
+        service.deleteById(gameID);
+        return ResponseEntity.ok("Game is successfully deleted!");
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, Map> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
 
-        Map<String, Map> ret = new HashMap<>();
-        ret.put("errors", errors);
-        return ret;
-    }
+
 }

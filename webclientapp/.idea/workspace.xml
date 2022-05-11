@@ -14,6 +14,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -37,6 +38,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "javascript.nodejs.core.library.configured.version": "16.14.0",
     "javascript.nodejs.core.library.typings.version": "16.11.33",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -59,7 +61,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1651682939244</updated>
-      <workItem from="1651682940460" duration="1767000" />
+      <workItem from="1651682940460" duration="2362000" />
+      <workItem from="1651987087289" duration="421000" />
     </task>
     <servers />
   </component>

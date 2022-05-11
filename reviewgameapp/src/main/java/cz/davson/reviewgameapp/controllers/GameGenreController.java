@@ -1,61 +1,64 @@
 package cz.davson.reviewgameapp.controllers;
 
 import cz.davson.reviewgameapp.entities.GameGenre;
-import cz.davson.reviewgameapp.repositories.GameGenreRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import cz.davson.reviewgameapp.services.GameGenreService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
+@AllArgsConstructor
+@RequestMapping("/gamegenre/")
+@CrossOrigin()
+
 public class GameGenreController {
-    private final GameGenreRepository repository;
+    private final GameGenreService service;
 
-    @Autowired
-    public GameGenreController(GameGenreRepository repository) {
-        this.repository = repository;
+    @GetMapping(path = "/all")
+    public List<GameGenre> getGenres() {
+        return  service.findAllGenres();
     }
 
-    @GetMapping("/gamegenres")
-    public List<GameGenre> findAll() {
-        return repository.findAll();
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@RequestBody GameGenre gameGenre) {
+        if(service.genreExistsByName(gameGenre.getName())){
+            return ResponseEntity
+                    .badRequest()
+                    .body("Warning: This gameGenre is already in DB!");
+        }
+        else
+        {
+            service.save(gameGenre);
+            return ResponseEntity.ok("GameGenre is created!");
+        }
     }
 
-    @GetMapping("/gamegenre/{id}")
-    Optional<GameGenre> findGame(@PathVariable Long id) {
-        return repository.findById(id);
+    @PostMapping("/{gameGenreID}/update")
+    public ResponseEntity<?> updateGameGenre(@RequestBody GameGenre gameGenre, @PathVariable("gameGenreID") long gameGenreID){
+        if(service.genreExistsByName(gameGenre.getName())){
+            return ResponseEntity
+                    .badRequest()
+                    .body("Warning: GameGenre is already iN DB!");
+        }
+        else
+        {
+            GameGenre gameGenreFromDB = service.findById(gameGenreID).orElseThrow(() -> new IllegalArgumentException("User is not found for id: " + gameGenreID));
+            Objects.requireNonNull(gameGenreFromDB).setName(gameGenre.getName());
+            service.save(gameGenreFromDB);
+            return  ResponseEntity.ok( "GameGenre is successfully updated!");
+        }
     }
 
-    @PutMapping("/gamegenre/{id}")
-    ResponseEntity<String> createOrUpdate(@PathVariable Long id, @RequestBody GameGenre newGameGenre) {
-        GameGenre gameGenre= repository.findById(id)
-                .map(x -> {
-                    x.setName(newGameGenre.getName());
-                    return repository.save(x);
-                })
-                .orElseGet(() -> repository.save(newGameGenre));
-        return ResponseEntity.ok("GameGenre is valid");
+    @DeleteMapping("/{gameGenreID}/delete")
+    public ResponseEntity<?> deleteUser(@PathVariable("gameGenreID") long gameGenreID) {
+        service.deleteById(gameGenreID);
+        return ResponseEntity.ok("GameGenre is successfully deleted!");
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, Map> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-
-        Map<String, Map> ret = new HashMap<>();
-        ret.put("errors", errors);
-        return ret;
+    @GetMapping("/{gameGenreID}")
+    public GameGenre getGameGenreByID(@PathVariable("gameGenreID") long gameGenreID) {
+        return  service.findById(gameGenreID).orElseThrow(() -> new IllegalArgumentException("Game not found with this ID: " + gameGenreID));
     }
 }

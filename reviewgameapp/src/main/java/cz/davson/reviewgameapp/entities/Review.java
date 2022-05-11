@@ -1,15 +1,13 @@
 package cz.davson.reviewgameapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import lombok.*;
-import org.hibernate.annotations.Type;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "review")
-@Data
 @NoArgsConstructor
 
 public class Review {
@@ -21,30 +19,30 @@ public class Review {
     @Getter
     @Setter
     @NotNull
-    @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_user_id")
     private User user;
 
     @Getter
     @Setter
     @NotNull
-    @OneToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_game_id")
     private Game game;
 
     @Getter
     @Setter
     @NotNull
-    @Column(name = "score")
     private int score;
 
     @Getter
     @Setter
-    @Column(name = "review_comment")
-    @Type(type="text")
     private String reviewComment;
 
-    public Review(User user, Game game, int score, String reviewComment) {
+    public Review(Long id, User user, Game game, int score, String reviewComment) {
+        this.id = id;
         this.user = user;
         this.game = game;
         this.score = score;

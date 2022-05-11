@@ -1,65 +1,47 @@
 package cz.davson.reviewgameapp.controllers;
 
 import cz.davson.reviewgameapp.entities.Review;
-import cz.davson.reviewgameapp.repositories.ReviewRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import cz.davson.reviewgameapp.services.ReviewService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
+@AllArgsConstructor
+@RequestMapping("/review")
+@CrossOrigin()
+
 public class ReviewController {
 
-    private final ReviewRepository repository;
+    private final ReviewService service;
 
-    @Autowired
-    public ReviewController(ReviewRepository repository) {
-        this.repository = repository;
+    @GetMapping(path = "/all")
+    public List<Review> getUsers() {
+        return  service.findAllReviews();
     }
 
-    @GetMapping("/reviews")
-    public List<Review> findAll() {
-        return repository.findAll();
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@RequestBody Review review) {
+        service.save(review);
+        return  ResponseEntity.ok("Review was successfully created!");
     }
 
-    @GetMapping("/review/{id}")
-    Optional<Review> findGame(@PathVariable Long id) {
-        return repository.findById(id);
+    @PostMapping("/{reviewID}/update")
+    public ResponseEntity<?> updateUser(@RequestBody Review review, @PathVariable("reviewID") long reviewID) {
+        Review reviewFromDB = service.findById(reviewID).orElseThrow(() -> new IllegalArgumentException("Review not found for id :: " + reviewID));
+        Objects.requireNonNull(reviewFromDB).setUser(review.getUser());
+        Objects.requireNonNull(reviewFromDB).setGame(review.getGame());
+        Objects.requireNonNull(reviewFromDB).setReviewComment(review.getReviewComment());
+        Objects.requireNonNull(reviewFromDB).setScore(review.getScore());
+        service.save(reviewFromDB);
+        return ResponseEntity.ok("Review is updated!");
     }
 
-    @PutMapping("/review/{id}")
-    ResponseEntity<String> createOrUpdate(@PathVariable Long id, @RequestBody Review newReview) {
-        Review review = repository.findById(id)
-                .map(x -> {
-                    x.setUser(newReview.getUser());
-                    x.setGame(newReview.getGame());
-                    x.setScore(newReview.getScore());
-                    x.setReviewComment(newReview.getReviewComment());
-                    return repository.save(x);
-                })
-                .orElseGet(() -> repository.save(newReview));
-        return ResponseEntity.ok("Review is valid");
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, Map> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-
-        Map<String, Map> ret = new HashMap<>();
-        ret.put("errors", errors);
-        return ret;
+    @DeleteMapping("/{reviewID}/delete")
+    public ResponseEntity<?> deleteUser(@PathVariable("reviewID") long gameID) {
+        service.deleteById(gameID);
+        return ResponseEntity.ok("Review is successfully deleted!");
     }
 }
