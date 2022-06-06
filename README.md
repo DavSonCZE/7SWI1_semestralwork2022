@@ -6,16 +6,21 @@
 ### -- frontend: React
 
 ## SWOT
-![Screenshot](images/swot/swot_analyza.png)
+![swot_analyza](images/swot/swot_analyza.png)
 
 ## DATABASE SCHEME
 
 ## ARCHITECTURE DIAGRAM:
-![Screenshot](images/architecture/architecture_diagram.png)
+![architecture_diagram](images/architecture/architecture_diagram.png)
 
 ## CLASS DIAGRAM:
 
-![Screenshot](images/class/all_classes.png)
+- [User](images/class/user_class.png)
+- [Game](images/class/game_class.png)
+- [GameGenre](images/class/gameGenre_class.png)
+- [Review](images/class/review_class.png)
+
+![class_diagram](images/class/all_classes.png)
 
 ## USE CASE:
 
