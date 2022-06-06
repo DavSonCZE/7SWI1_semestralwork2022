@@ -6,14 +6,16 @@
 ### -- frontend: React
 
 ## SWOT
-![Screenshot](SWOT/SWOT.png)
+![Screenshot](images/swot/swot_analyza.png)
 
 ## DATABASE SCHEME
 
 ## ARCHITECTURE DIAGRAM:
-![Screenshot](DIAGRAMS/architecture_diagram.png)
+![Screenshot](images/architecture/architecture diagram.png)
 
 ## CLASS DIAGRAM:
+
+![Screenshot](images/class/all_classes.png)
 
 ## USE CASE:
 
