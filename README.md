@@ -12,7 +12,7 @@
 ## DATABASE SCHEME
 
 ## ARCHITECTURE DIAGRAM:
-![architecture_diagram](images/architecture/architecture_diagram.drawio (1).png)
+![architecture_diagram](images/architecture/architecture_diagram.png)
 
 ## CLASS DIAGRAM:
 
