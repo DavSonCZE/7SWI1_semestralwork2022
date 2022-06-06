@@ -24,6 +24,7 @@
 ![class_diagram](images/class/all_classes.png)
 
 ## USE CASE:
+- [Use cases](images/use_case/swi_project_use_cases.pdf)
 ![use_case](images/use_case/use_case.png)
 
 ## Analytical Sequence Diagram:
