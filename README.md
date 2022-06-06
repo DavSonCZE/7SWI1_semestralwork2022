@@ -10,10 +10,10 @@
 ![swot_analyza](images/swot/swot_analyza.png)
 
 ## DATABASE SCHEME
-![database_schema](images/database_scheme/architecture_diagram.png)
+![database_schema](images/database_scheme/database_diagram.drawio.png)
 
 ## ARCHITECTURE DIAGRAM:
-![architecture_diagram](images/architecture/database_diagram.drawio.png)
+![architecture_diagram](images/architecture/architecture_diagram.png)
 
 ## CLASS DIAGRAM:
 
