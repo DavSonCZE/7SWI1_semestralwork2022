@@ -30,8 +30,8 @@
 ![use_case](images/use_case/use_case.png)
 
 ## Analytical Sequence Diagram:
-
 POZOR! 1.1 Ask for all games (špatný popisek)
+
 ![analytical sequence diagram](images/sequence_digrams/sequence_diagram1.drawio.png)
 
 ## Design Sequence Diagram:
