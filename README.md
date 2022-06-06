@@ -30,6 +30,7 @@
 ![use_case](images/use_case/use_case.png)
 
 ## Analytical Sequence Diagram:
+![analytical sequence diagram](images/sequence_digrams/sequence_diagram1.drawio.png)
 
 ## Design Sequence Diagram:
 
