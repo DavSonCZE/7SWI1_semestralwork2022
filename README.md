@@ -1,9 +1,10 @@
 # 7SWI1 SEMESTRÁLNÍ PROJEKT (2022)
  
 ### -- Téma: webová aplikace, na které mohou dávat uživatelé recenze an hry s daným score
-### -- Recenzující (user) může recenzovat hru jen jednou. A pokud by chtěl změnit recenzi, tak pozmění staré score a text k recenzi.
+### -- Přihlášený uživatel se (user) může recenzovat hru jen jednou. A pokud by chtěl změnit recenzi, tak pozmění staré score a text k recenzi nebo případně ji smaže. (Manipuluje maximálně se svojí recenzí)
+### -- Nepříhhlášený uživatel může zobrazit recenze, ale nemůžu je bez přihlášení přidávat ři jinak s nima minipulovat.
 ### -- Backend: Spring Boot REST
-### -- frontend: React
+### -- frontend: Next.Js
 
 ## SWOT
 ![swot_analyza](images/swot/swot_analyza.png)
