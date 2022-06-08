@@ -37,5 +37,5 @@ POZOR! 1.1 Ask for all games (špatný popisek)
 ## Design Sequence Diagram ( Show Games - Design ):
 ![design sequence diagram](images/sequence_digrams/design_sequence_dialog.drawio.png)
 
-## EPC Diagram:
+## EPC Diagram (Add new review):
 ![epc diagram](images/epc_diagram/epc_diagram.png)
