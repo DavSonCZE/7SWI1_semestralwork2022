@@ -29,8 +29,13 @@
 
 ![use_case](images/use_case/use_case.png)
 
-## Analytical Sequence Diagram:
+## Analytical Sequence Diagram ( Show Games - Analytical ):
+POZOR! 1.1 Ask for all games (špatný popisek)
 
-## Design Sequence Diagram:
+![analytical sequence diagram](images/sequence_digrams/sequence_diagram1.drawio.png)
+
+## Design Sequence Diagram ( Show Games - Design ):
+![design sequence diagram](images/sequence_digrams/design_sequence_dialog.drawio.png)
 
 ## EPC Diagram:
+![epc diagram](images/epc_digram/epc_diagram.png)
