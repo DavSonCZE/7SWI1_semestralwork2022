@@ -38,4 +38,4 @@ POZOR! 1.1 Ask for all games (špatný popisek)
 ![design sequence diagram](images/sequence_digrams/design_sequence_dialog.drawio.png)
 
 ## EPC Diagram:
-![epc diagram](images/epc_digram/epc_diagram.png)
+![epc diagram](images/epc_diagram/epc_diagram.png)
