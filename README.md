@@ -15,14 +15,14 @@
 ## ARCHITECTURE DIAGRAM:
 ![architecture_diagram](images/architecture/architecture_diagram.png)
 
-## CLASS DIAGRAM:
+## CLASS DIAGRAM: [FIX: má být z pohledu databáze]
 
 - [User](images/class/user_class.png)
 - [Game](images/class/game_class.png)
 - [GameGenre](images/class/gameGenre_class.png)
 - [Review](images/class/review_class.png)
 
-![class_diagram](images/class/all_classes.png)
+![class_diagram](images/class/all_classes.png) 
 
 ## USE CASE:
 - [Use cases](images/use_case/swi_project_use_cases.pdf)
@@ -37,5 +37,5 @@ POZOR! 1.1 Ask for all games (špatný popisek)
 ## Design Sequence Diagram ( Show Games - Design ):
 ![design sequence diagram](images/sequence_digrams/design_sequence_dialog.drawio.png)
 
-## EPC Diagram (Add new review):
+## EPC Diagram (Add new review): [MÁ BÝT Z POHLEDU FIRMY NE IT (FIX)]
 ![epc diagram](images/epc_diagram/epc_diagram.png)
